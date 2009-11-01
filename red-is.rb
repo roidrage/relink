@@ -10,6 +10,10 @@ post '/' do
   erb :index
 end
 
+post '/t' do
+  "http://#{env['HTTP_HOST']}/#{RedisUrl.find_or_create(params[:url]).id}"
+end
+
 get '/favicon.ico' do
 end
 

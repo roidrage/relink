@@ -57,6 +57,14 @@ class RedisTest < Test::Unit::TestCase
           post '/', :url => 'http://www.heise.de'
         end
       end
+      
+      context 'with plain text response' do
+        should 'return only the generate short url' do
+          post '/t', {:url => "http://www.heise.de"}, {"HTTP_HOST" => 'localhost'}
+          url = RedisUrl.find_by_url('http://www.heise.de')
+          assert_equal "http://localhost/#{url.id}", last_response.body
+        end
+      end
     end
     
     context 'when requesting a shortened url' do
