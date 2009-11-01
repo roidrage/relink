@@ -1,5 +1,4 @@
 require 'redis_url'
-require 'haml'
 
 get '/' do
   erb :index
