@@ -11,9 +11,11 @@ class RedisUrl
 
   def self.find(id)
     u = $redis.get(key(id))
-    redis_url = RedisUrl.new(u)
-    redis_url.id = id
-    redis_url
+    if u
+      redis_url = RedisUrl.new(u)
+      redis_url.id = id
+      redis_url
+    end
   end
   
   def self.find_by_url(url)
@@ -37,6 +39,10 @@ class RedisUrl
     new(url).save
   end
   
+  def self.count
+    $redis.llen(all_urls)
+  end
+  
   def key
     self.class.key(@id)
   end
@@ -50,6 +56,10 @@ class RedisUrl
     $redis.incr(clicked_key)
   end
   
+  def clicks
+    $redis.get(clicked_key)
+  end
+  
   def self.reverse_key(url)
     "red.is.url.reverse|#{url}"
   end
@@ -58,10 +68,19 @@ class RedisUrl
     self.class.reverse_key(@url)
   end
   
+  def self.all_urls
+    'red.is.urls'
+  end
+  
+  def all_urls
+    self.class.all_urls
+  end
+  
   def save
     set_id
     $redis.set(key, @url)
     $redis.set(reverse_key, @id)
+    $redis.lpush(all_urls, @id)
     self
   end
   

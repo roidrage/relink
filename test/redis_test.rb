@@ -29,8 +29,14 @@ class RedisUrlTest < Test::Unit::TestCase
         RedisUrl.create("http://www.heise.de")
         assert_not_nil $redis.get('red.is.url.reverse|http://www.heise.de')
       end
+      
+      should 'increase the url count in the database' do
+        assert_difference 'RedisUrl.count' do
+          RedisUrl.create("http://www.heise.de")
+        end
+      end
     end
-    
+
     context 'when generating a seed' do
       should 'generate different seeds on subsequent runs' do
         url = RedisUrl.new("http://www.heise.de")
@@ -47,6 +53,11 @@ class RedisUrlTest < Test::Unit::TestCase
         url = RedisUrl.find(@url.id)
         assert_equal "http://www.heise.de", url.url
         assert_equal @url.id, url.id
+      end
+      
+      should 'return nil if url not found' do
+        url = RedisUrl.find('1234')
+        assert_nil url
       end
     end
     
@@ -77,6 +88,12 @@ class RedisUrlTest < Test::Unit::TestCase
         assert_difference '$redis.get(@url.clicked_key).to_i' do
           @url.clicked
         end
+      end
+      
+      should 'return the number of clicks' do
+        @url = RedisUrl.create("http://www.heise.de")
+        @url.clicked
+        assert_equal "1", @url.clicks
       end
     end
   end

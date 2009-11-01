@@ -1,24 +1,8 @@
-<html>
-  <head>
-    <title>red.is</title>
-    <link rel="stylesheet" href="/style.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
-  </head>
-  <body>
-    <div id="main">
-      <h1>red.is a url today</h1>
-    
-      <% unless @url.nil? %>
-        <%= @url.url %> red.is'd to <code><a href="<%= "http://#{env['HTTP_HOST']}/#{@url.id}" %>"><%= "http://#{env['HTTP_HOST']}/#{@url.id}" %></a></code><br/><br/>
-      <% end %>
-      
-      <form method="post" action="/">
-        <input type="text" name="url" size="48"/>
-        <input type="submit" value="red.is!">
-      </form>
+<% unless @url.nil? %>
+  <%= @url.url %> red.is'd to <br/><br/><code><a href="<%= "http://#{env['HTTP_HOST']}/#{@url.id}" %>"><%= "http://#{env['HTTP_HOST']}/#{@url.id}" %></a></code><br/><br/>
+<% end %>
 
-      copyright &copy; <a href="http://paperplanes.de">Mathias Meyer</a><br/><br/>
-      Built with Sinatra and <a href="http://code.google.com/p/redis">Redis</a>.<br/>
-      <a href="http://github.com/mattmatt/red.is">Source code</a>
-    </div>
-  </body>
-</html>
+<form method="post" action="/">
+  <input type="text" name="url" size="48"/>
+  <input type="submit" value="red.is!">
+</form>
