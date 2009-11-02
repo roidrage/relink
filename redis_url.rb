@@ -76,7 +76,7 @@ class RedisUrl
   end
   
   def truncated_url
-    "#{url[0..25]}#{url.length > 50 ? '...' : ''}#{url[-25..url.length]}"
+    url.length > 50 ? "#{url[0..25]}...#{url[-25..url.length]}" : url
   end
   
   def self.all_urls

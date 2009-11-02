@@ -133,6 +133,8 @@ class RedisUrlTest < Test::Unit::TestCase
       should 'not put dots in urls shorter than the maximum' do
         url = RedisUrl.create("http://www.heise.de")
         assert_equal 'http://www.heise.de', url.truncated_url
+        url = RedisUrl.create("http://example.org")
+        assert_equal 'http://example.org', url.truncated_url
       end
     end
   end
