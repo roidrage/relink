@@ -127,7 +127,7 @@ class RedisUrlTest < Test::Unit::TestCase
     context "when fetching the truncated version of a url" do
       should 'shorten the url to 50 characters plus some dots' do
         url = RedisUrl.create('http://jchrisa.net/drl/_design/sofa/_list/index/recent-posts?descending=true&limit=5')
-        assert_equal 'http://jchrisa.net/drl/_de...s?descending=true&limit=5', url.truncated_url
+        assert_equal 'http://jchrisa.net/dr...s?descending=true&limit=5', url.truncated_url
       end
       
       should 'not put dots in urls shorter than the maximum' do
