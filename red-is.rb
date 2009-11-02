@@ -16,6 +16,11 @@ end
 get '/favicon.ico' do
 end
 
+get '/list' do
+  @urls = RedisUrl.all
+  erb :list
+end
+
 get '/p/:url' do |url|
   @url = RedisUrl.find(url)
   if @url

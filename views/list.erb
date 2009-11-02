@@ -1,0 +1,3 @@
+<% @urls.each do |url| %>
+  <%= url.clicks || 0 %> clicks: <a href="<%= url.url %>" title="<%= url.url %>"><%= url.truncated_url %></a><br/>
+<% end %>

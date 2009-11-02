@@ -19,7 +19,7 @@ class RedisTest < Test::Unit::TestCase
     Sinatra::Application
   end
   
-  context "When red.is'ing urls" do
+  context "When redising urls" do
     setup do
       $redis = Redis.new(:db => 10)
       $redis.flush_db
@@ -96,6 +96,23 @@ class RedisTest < Test::Unit::TestCase
         get '/p/asdfas'
         assert last_response.not_found?
         assert last_response.body.include?("The specified key didn't do anything for me. Sorry.")
+      end
+    end
+    
+    context 'when listing all urls' do
+      setup do
+        url = RedisUrl.create("http://www.heise.de")
+        10.times {url.clicked}
+        url = RedisUrl.create("http://www.cnn.com")
+        20.times {url.clicked}
+      end
+      
+      should 'include the full url' do
+        get '/list'
+        assert last_response.body.include?('http://www.cnn.com')
+        assert last_response.body.include?('10')
+        assert last_response.body.include?('http://www.heise.de')
+        assert last_response.body.include?('20')
       end
     end
   end

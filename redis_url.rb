@@ -6,6 +6,7 @@ class RedisUrl
   attr_accessor :url, :id
   
   def initialize(url = nil)
+    url = "http://#{url}" unless url.match(/^https?:\/\//)
     @url = url
   end
 
@@ -43,6 +44,12 @@ class RedisUrl
     $redis.llen(all_urls)
   end
   
+  def self.all
+    $redis.lrange(all_urls, 0, count).collect do |url|
+      find(url)
+    end
+  end
+  
   def key
     self.class.key(@id)
   end
@@ -68,6 +75,10 @@ class RedisUrl
     self.class.reverse_key(@url)
   end
   
+  def truncated_url
+    "#{url[0..25]}#{url.length > 50 ? '...' : ''}#{url[-25..url.length]}"
+  end
+  
   def self.all_urls
     'red.is.urls'
   end
@@ -77,11 +88,15 @@ class RedisUrl
   end
   
   def save
-    set_id
-    $redis.set(key, @url)
-    $redis.set(reverse_key, @id)
-    $redis.lpush(all_urls, @id)
-    self
+    if validate
+      set_id
+      $redis.set(key, @url)
+      $redis.set(reverse_key, @id)
+      $redis.lpush(all_urls, @id)
+      self
+    else
+      false
+    end
   end
   
   def seed
@@ -99,5 +114,15 @@ class RedisUrl
   
   def set_id
     @id = seed
+  end
+  
+  def validate
+    check_invalid_urls
+  end
+  
+  def check_invalid_urls
+    ['tinyurl.com', 'bit.ly', 'j.mp', 'f0rk.me', 'tr.im', 'rubyurl.com'].each do |url|
+      return false if self.url.match(/http:\/\/#{url}/)
+    end
   end
 end
