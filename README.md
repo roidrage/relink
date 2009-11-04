@@ -24,6 +24,8 @@ If you put a file httpasswd in the application's root directory, the app will pr
 
 redis:1be168ff837f043bde17c0314341c84271047b31
 
+If you deploy using Capistrano, just put the htpasswd file into app\_dir/shared/config, and it'll be automatically linked into the app directory.
+
 Scripting URL shortening
 ========================
 

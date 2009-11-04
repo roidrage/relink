@@ -23,5 +23,5 @@ end
 after "deploy:update_code", "copy_config"
 
 task :copy_config do
-  run "ln -nfs #{shared_path}/config/htpasswd #{release_path}/htpasswd"
+  run "if [ -f #{shared_path}/config/htpasswd ]; then ln -nfs #{shared_path}/config/htpasswd #{release_path}/htpasswd; fi"
 end
