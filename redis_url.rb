@@ -59,7 +59,6 @@ class RedisUrl
   end
   
   def clicked
-    $redis.setnx(clicked_key, '0')
     $redis.incr(clicked_key)
   end
   
