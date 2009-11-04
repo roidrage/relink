@@ -1,5 +1,5 @@
 require 'rubygems'
 require 'sinatra'
 
-require 'red-is'
+require 'relink'
 run Sinatra::Application

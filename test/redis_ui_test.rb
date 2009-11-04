@@ -1,7 +1,7 @@
 $:.<<(File.dirname(__FILE__) + "/../")
 require 'rubygems'
 require 'sinatra'
-require 'red-is'
+require 'relink'
 require 'test/unit'
 require 'rack/test'
 require 'active_support'
