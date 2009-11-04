@@ -27,7 +27,7 @@ auth_file = File.dirname(__FILE__) + "/htpasswd"
 if File.exists?(auth_file)
   $credentials = {}
   File.open(auth_file, "r") do |f|
-    f.lines.each do |line|
+    f.readlines.each do |line|
       user, password = line.split(":")
       $credentials[user] = password.chomp
     end
