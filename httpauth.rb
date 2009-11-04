@@ -19,8 +19,24 @@ helpers do
   end
   
   def authorized?
-    $credentials.nil? || super
+    $credentials.nil? || session[:user] || super
   end
+  
+  def login_required
+    return if authorized?
+    unauthorized! unless auth.provided?
+    bad_request!  unless auth.basic?
+    unauthorized! unless authorize(*auth.credentials)
+    request.env['REMOTE_USER'] = auth.username
+    session[:user] = auth.username
+  end
+
+
+  # Name provided by the current user to log in
+  def current_user
+    request.env['REMOTE_USER'] || session[:user]
+  end
+  
 end
 
 auth_file = File.dirname(__FILE__) + "/htpasswd"

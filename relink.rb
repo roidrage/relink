@@ -1,6 +1,8 @@
 require 'httpauth'
 require 'redis_url'
 
+enable :sessions
+
 get '/' do
   erb :index
 end
