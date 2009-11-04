@@ -19,3 +19,9 @@ namespace :deploy do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 end
+
+after "deploy:update_code", "copy_config"
+
+task :copy_config do
+  run "ln -nfs #{shared_path}/config/htpasswd #{release_path}/htpasswd"
+end
