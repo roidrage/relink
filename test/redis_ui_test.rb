@@ -4,9 +4,9 @@ require 'sinatra'
 require 'red-is'
 require 'test/unit'
 require 'rack/test'
-require 'shoulda'
 require 'active_support'
 require 'active_support/testing/assertions'
+require 'shoulda'
 
 set :environment, :test
 set :views, (File.dirname(__FILE__) + "/../views")
