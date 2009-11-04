@@ -33,7 +33,7 @@ class RedisUrl
   end
   
   def self.key(id)
-    "red.is.url|#{id}"
+    "relink.url|#{id}"
   end
 
   def self.create(url)
@@ -55,7 +55,7 @@ class RedisUrl
   end
   
   def clicked_key
-    "red.is.url.clicks|#{id}"
+    "relink.url.clicks|#{id}"
   end
   
   def clicked
@@ -68,7 +68,7 @@ class RedisUrl
   end
   
   def self.reverse_key(url)
-    "red.is.url.reverse|#{url}"
+    "relink.url.reverse|#{url}"
   end
   
   def reverse_key
@@ -80,7 +80,7 @@ class RedisUrl
   end
   
   def self.all_urls
-    'red.is.urls'
+    'relink.urls'
   end
   
   def all_urls
@@ -109,7 +109,7 @@ class RedisUrl
   end
   
   def counter
-    'red.is.seeder'
+    'relink.seeder'
   end
   
   def set_id
@@ -121,7 +121,7 @@ class RedisUrl
   end
   
   def check_invalid_urls
-    ['tinyurl.com', 'bit.ly', 'j.mp', 'f0rk.me', 'tr.im', 'rubyurl.com'].each do |url|
+    ['tinyurl.com', 'bit.ly', 'j.mp', 'f0rk.me', 'tr.im', 'rubyurl.com', 'roidi.us'].each do |url|
       return false if self.url.match(/http:\/\/#{url}/)
     end
   end

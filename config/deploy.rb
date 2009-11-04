@@ -1,5 +1,5 @@
 set :application, "f0rk.me"
-set :repository,  "git://github.com/mattmatt/red.is"
+set :repository,  "git://github.com/mattmatt/relink"
 
 set :scm, :git
 set :use_sudo, false

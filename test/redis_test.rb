@@ -27,7 +27,7 @@ class RedisUrlTest < Test::Unit::TestCase
       
       should 'store a reverse lookup entry by url' do
         RedisUrl.create("http://www.heise.de")
-        assert_not_nil $redis.get('red.is.url.reverse|http://www.heise.de')
+        assert_not_nil $redis.get('relink.url.reverse|http://www.heise.de')
       end
       
       should 'increase the url count in the database' do
@@ -42,7 +42,7 @@ class RedisUrlTest < Test::Unit::TestCase
       
       context 'with invalid urls' do
         should 'not save the object when the url is pointing to f0rk.me or other url shorteners' do
-          ['tinyurl.com/af13', 'bit.ly/af13', 'j.mp/af13', 'f0rk.me/af13', 'tr.im/af13', 'rubyurl.com/af13'].each do |url|
+          ['tinyurl.com/af13', 'bit.ly/af13', 'j.mp/af13', 'f0rk.me/af13', 'tr.im/af13', 'rubyurl.com/af13', 'roidi.us/af13'].each do |url|
             assert !RedisUrl.create(url)
           end
         end

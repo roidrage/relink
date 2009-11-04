@@ -1,8 +1,8 @@
 <% unless @url.nil? %>
-  <%= @url.url %> red.is'd to <br/><br/><code><a href="<%= "http://#{env['HTTP_HOST']}/#{@url.id}" %>"><%= "http://#{env['HTTP_HOST']}/#{@url.id}" %></a></code><br/><br/>
+  <%= @url.url %> relink'd to <br/><br/><code><a href="<%= "http://#{env['HTTP_HOST']}/#{@url.id}" %>"><%= "http://#{env['HTTP_HOST']}/#{@url.id}" %></a></code><br/><br/>
 <% end %>
 
 <form method="post" action="/">
   <input type="text" name="url" size="48"/>
-  <input type="submit" value="red.is!">
+  <input type="submit" value="relink!">
 </form>

@@ -31,18 +31,18 @@ class RedisTest < Test::Unit::TestCase
         assert last_response.body.include?('<form')
       end
       
-      should "not include a red.is'd url" do
+      should "not include a relink'd url" do
         get '/'
-        assert !last_response.body.include?("red.is'd")
+        assert !last_response.body.include?("relink'd")
       end
     end
     
     context 'when creating a url' do
-      should "include the notification that the url has been red.is'd" do
+      should "include the notification that the url has been relink'd" do
         post '/', {:url => "http://www.heise.de"}, {"HTTP_HOST" => 'localhost'}
         assert last_response.ok?
         url = RedisUrl.find_by_url("http://www.heise.de")
-        assert last_response.body.include?("http://www.heise.de red.is'd to")
+        assert last_response.body.include?("http://www.heise.de relink'd to")
         assert last_response.body.include?("http://localhost/#{url.id}")
       end
       
