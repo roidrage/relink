@@ -1,4 +1,5 @@
 require "sinatra/authorization"
+require 'digest/sha1'
 
 set :authorization_realm, "Protected zone"
 
