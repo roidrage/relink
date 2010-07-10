@@ -8,9 +8,9 @@ ssh_options[:forward_agent] = true
 default_run_options[:pty] = true
 set :deploy_via, :remote_cache
 
-role :web, "www.f0rk.me"
-role :app, "www.f0rk.me"
-role :db,  "www.f0rk.me", :primary => true
+role :web, "roidi.us"
+role :app, "roidi.us"
+role :db,  "roidi.us", :primary => true
 
 namespace :deploy do
   task(:start) {}
