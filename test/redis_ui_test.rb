@@ -22,7 +22,7 @@ class RedisTest < Test::Unit::TestCase
   context "When redising urls" do
     setup do
       $redis = Redis.new(:db => 10)
-      $redis.flush_db
+      $redis.flushdb
     end
     
     context 'on the index page' do

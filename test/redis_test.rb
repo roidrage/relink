@@ -11,7 +11,7 @@ class RedisUrlTest < Test::Unit::TestCase
   context 'A Redis-based URL' do
     setup do
       $redis = Redis.new(:db => 10)
-      $redis.flush_db
+      $redis.flushdb
     end
     
     context 'when creating a URL' do
