@@ -3,6 +3,7 @@ require 'rubygems'
 require 'redis_url'
 require 'test/unit'
 require 'shoulda'
+require 'mocha'
 require 'active_support'
 require 'active_support/testing/assertions'
 
@@ -45,6 +46,17 @@ class RedisUrlTest < Test::Unit::TestCase
           ['tinyurl.com/af13', 'bit.ly/af13', 'j.mp/af13', 'f0rk.me/af13', 'tr.im/af13', 'rubyurl.com/af13', 'roidi.us/af13'].each do |url|
             assert !RedisUrl.create(url)
           end
+        end
+      end
+
+      context "with the same key coming up twice" do
+        should "create a new seed" do
+          first_url = RedisUrl.create('http://www.heise.de')
+          seq = sequence(:seed)
+          url = RedisUrl.new('http://www.golem.de')
+          url.expects(:seed).returns(first_url.id).in_sequence(seq)
+          url.expects(:seed).returns('abcd').in_sequence(seq)
+          url.save
         end
       end
       

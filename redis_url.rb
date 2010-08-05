@@ -107,12 +107,19 @@ class RedisUrl
     secret
   end
   
+  def generate_seed
+    loop do
+      next_seed = seed
+      return next_seed if not RedisUrl.find(next_seed)
+    end
+  end
+
   def counter
     'relink.seeder'
   end
   
   def set_id
-    @id = seed
+    @id = generate_seed
   end
   
   def validate
