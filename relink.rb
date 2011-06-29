@@ -39,6 +39,10 @@ get '/p/:url' do |url|
 end
 
 get %r{/(.+)} do |url|
+  if request.user_agent =~ /Twitterbot/
+    return "You shall not pass."
+  end
+
   u = RedisUrl.find(url)
   if u
     u.clicked

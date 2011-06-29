@@ -80,6 +80,12 @@ class RedisTest < Test::Unit::TestCase
         assert last_response.not_found?
         assert last_response.body.include?("The specified key didn't do anything for me. Sorry.")
       end
+
+      should "fail for the twitterbot" do
+        url = RedisUrl.create("http://www.heise.de")
+        get "/#{url.id}", {}, {"HTTP_USER_AGENT" => "Twitterbot/1.0"}
+        assert last_response.body.include?("You shall not pass.")
+      end
     end
     
     context 'when requesting the details page for a shortened url' do
